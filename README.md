@@ -8,6 +8,9 @@ This repo contains the workbook and scripts used to develop the Centre for Citie
 
 This depends on price paid data, available here: https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads 
 
+Contains HM Land Registry data © Crown copyright and database right 2021. This data is licensed under the Open Government Licence v3.0.
+
+
 ## Getting Started
 ### Dependencies
 
@@ -34,16 +37,14 @@ These current bands are then joined to the revalued bands by price to generate a
 
 Council tax reliefs (such as the single adult discount, exemptions for students, and the means tested council tax reduction scheme [CTRS]) are not explicitly taken into account in this model, but can be easily incorporated by policymakers, as discussed later in the paper.
 
+Many of the equilibrium effects (e.g. effects on house prices) set out in the IFS report will have similar directional effects as in this proposal (e.g. higher/lower council tax bills will decrease/increase property values), but the magnitude will vary depending on the choices made by each local authority.
+
 ### Understanding the Scripts
 
-There are currently two scripts in this folder
+There are currently two scripts in this folder that process the price paid data
 
 * Wales Script - A STATA script that produces the 2022 revaluation, as well as the collapsed version of the join between 2003 and 2022 bands
 
 * Council Tax Bands Assign - an R script that joins the 2003 bands to the 2022 bands
 
-
-## Contributions
-
-Any contributions you make are greatly appreciated. Please create a open an issue with the tag "enhancement" before opening a pull request.
 
