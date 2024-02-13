@@ -2,7 +2,7 @@
 		
 	* It takes the normal price paid data, cleans it in a normal way, assigns modelled council tax bands after a hypothetical revaluation to each 2022 price. The data is here, but should be in the theme data: https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads 
 	
-	* It then assigns each price to a 1/1000th ranking within each local authority to generate a price curve for each local authority. This takes ages and should be done overnight.
+	* It then assigns each price to a 1/1000th ranking within each local authority to generate a price curve for each local authority. 
 	
 	* This ranking is then exported to a csv and in the R script in this folder merged with a 1/1000th ranking of properties by 2003 council tax bands, aligning each price and its modelled 2022 CT band with a likely 2003 CT band
 
@@ -18,7 +18,8 @@
 
 	drop if category=="O"
 
-	*Merging with England and Wales postcode data, available from the ONS Open Geography Portal
+	*Merging with England and Wales postcode data, available from the ONS Open Geography Portal: https://geoportal.statistics.gov.uk/datasets/ons::national-statistics-postcode-lookup-2011-census-november-2023/about
+	*Centre for Cities has a lookup which we use to assign our own geography, but as we are using local authorities this extra step isn't necessary
 
 	rename v4 pcds
 	rename v2 price
@@ -60,8 +61,7 @@
 
 	table ctband2
 
-* 2.a Export as a collapsed output to build your initial analysis in Excel. Skip this bit if you have already done this.
-	
+* 2.a Export as a collapsed output to build your initial estimate of how many properties exist in each local authority in each revalued band - this exists on the CT_Bands_LAs_2022 sheet in the workbook. Skip this bit if you have already done this.
 	
 	
 	*gen n_=1
@@ -74,7 +74,7 @@
 	 
 *2.b Match with 2003 data
 
-	*Add percentiles for the cumulative ranking of each transaction (and thereby each price) by local authority, so we can assign 2003 Council Tax Bands (which are estimated cumulatively)
+	*Add percentiles for the cumulative ranking of each transaction (and thereby each price) by local authority, so we can assign 2003 Council Tax Bands (which are estimated cumulatively) to their modern prices
 
 	egen quant=xtile(price), n(1000) by(laua)
 
@@ -85,7 +85,7 @@
 	save "C:\Users\\`=c(username)'\Centre for Cities\Centre For Cities POC - Documents\Research\Blogs and Presentations\Blogs\2024\Data\2024-01-09_Wales_CT\2024-01-02_pp2022_Wales.dta"
 
 	clear 
-* 3. Improt and collapse the joined 2003-2022-price estimates
+* 3. Import and collapse the joined 2003-2022-price estimates
 
 	import delimited "C:\Users\\`=c(username)'\Centre for Cities\Centre For Cities POC - Documents\Research\Devolution and Finance\English Devolution Deal\Data\Input\2024-01-11_Council_Tax_Bands_2003_2022_Wales.csv"
 

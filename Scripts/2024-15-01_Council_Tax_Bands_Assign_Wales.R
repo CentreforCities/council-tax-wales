@@ -1,6 +1,11 @@
 
 library(tidyverse)
 
+#in this script, we are merging the council tax bands fo 2003, which have been cumulatively ranked from 1 to 1000 for each local authority (e.g. band A in Swansea is 15% of dwellings, so it includes the bottom 150 out of 1000 properties)
+
+#with the price paid data's prices and revalued council tax bands according to that ranking of 1000ths - so that the prices ranked from 1 to 150 out of 1000 for Swansea (and the revalued CT bands assigned to them) match the current Band A dwellings in Swansea
+
+
 getwd()
 data_folder <- "C://Users/a.breach/Centre for Cities/Centre For Cities POC - Documents/Research/Devolution and Finance/English Devolution Deal/Data/Input"
 
@@ -29,6 +34,7 @@ joined_ct_quantiles <- left_join(houses, council_tax, by = "lad11cd") %>%
   select(house_id, lad11cd, lad11nm, ttwahs11la_cfc, ttwahs11ca_cfc, price, price_quantile, ctband2022, ctband1991, highest_price_quant)
 
 #0.2% of properties not alinging - add more decimal points into the quant script??
+##this isn't a big problem, ignore
 #quant script may need to be rewritten to genereate percentiles based upon the LAD rather than TTWA-HS
 
 write.csv(joined_ct_quantiles, "C://Users/a.breach/Centre for Cities/Centre For Cities POC - Documents/Research/Devolution and Finance/English Devolution Deal/Data/Input/2024-01-11_Council_Tax_Bands_2003_2022_Wales.csv", row.names=FALSE)
